@@ -8,6 +8,7 @@ public class JavaJatoApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(JavaJatoApplication.class, args);
+		
 	}
 
 }
