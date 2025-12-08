@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import com.api.java_jato.dtos.ServiceDTO;
 import com.api.java_jato.models.ServiceWash;
 import com.api.java_jato.repository.ServiceRepository;
-import com.api.java_jato.states.States;
 
 import jakarta.transaction.Transactional;
 
@@ -36,5 +35,7 @@ public class ServiceService {
         serviceWash.setState(wash.getState());
         repository.save(wash);
     }
+
+   
 
 }
