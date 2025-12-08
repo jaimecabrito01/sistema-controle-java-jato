@@ -3,6 +3,7 @@ package com.api.java_jato.services;
 import java.time.Instant;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.core.ReactiveRedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,7 @@ public class RedisQueueService {
     public RedisQueueService(ReactiveRedisTemplate<String, Long> reactiveRedisTemplate) {
         this.reactiveRedisTemplate = reactiveRedisTemplate;
     }
-
+    
     public Mono<Boolean> addActiveQueue(Long id) {
         double score = Instant.now().toEpochMilli();
         return reactiveRedisTemplate.opsForZSet()
