@@ -1,13 +1,10 @@
 package com.api.java_jato.models;
 
 import java.math.BigDecimal;
-import java.sql.Date;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
-import org.hibernate.annotations.Collate;
 
-import com.api.java_jato.states.Estados;
+import com.api.java_jato.states.States;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -31,27 +28,28 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Servico {
+public class Service {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Enumerated(EnumType.STRING)
-    @Column(name = "estado", nullable = false)
-    private Estados estado;
+    @Column(name = "state", nullable = false)
+    private States state;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "carro_id", nullable = false)
-    private Carro carro;
+    @JoinColumn(name = "car_id", nullable = false)
+    private Car car;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tipo_servico_id", nullable = false)
-    private TipoServico tipoServico;
-    @Column(name = "data_entrada_fila", nullable = false)
-    private LocalDateTime dataEntradaFila;
+    @JoinColumn(name = "service_type_id", nullable = false)
+    private ServiceType serviceType;
+    @Column(name = "date_entry_queue", nullable = false)
+    private LocalDateTime dateEntryQueue;
 
-    @Column(name = "data_inicio_lavagem")
-    private LocalDateTime dataInicioLavagem;
+    @Column(name = "start_date_washing")
+    private LocalDateTime startDateWashing;
 
-    @Column(name = "data_fim_servico")
+    @Column(name = "service_end_date")
     private LocalDateTime dataFimServico;
-    private BigDecimal valor_total;
+    @Column(name = "total_value")
+    private BigDecimal totalValue;
 
 }

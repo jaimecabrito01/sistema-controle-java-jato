@@ -1,51 +1,51 @@
-CREATE TABLE cliente (
+CREATE TABLE customer (
     id UUID PRIMARY KEY  uuid_generate_v4(),
-    nome_completo VARCHAR(255) NOT NULL,
-    telefone VARCHAR(20) NOT NULL,
+    name_customer VARCHAR(255) NOT NULL,
+    phone_number VARCHAR(20) NOT NULL,
     email VARCHAR(255) NULL,
 );
 
-CREATE TABLE carro (
+CREATE TABLE car (
     id BIGSERIAL PRIMARY KEY,
-    placa VARCHAR(10) UNIQUE NOT NULL, 
-    modelo VARCHAR(100) NOT NULL,
-    cor VARCHAR(50) NOT NULL,
-    cliente_id BIGINT NOT NULL,
+    license_plate VARCHAR(10) UNIQUE NOT NULL, 
+    model VARCHAR(100) NOT NULL,
+    color VARCHAR(50) NOT NULL,
+    customer_id BIGINT NOT NULL,
     
-    CONSTRAINT fk_carro_cliente
-        FOREIGN KEY (cliente_id)
-        REFERENCES cliente (id)
+    CONSTRAINT fk_customer_car
+        FOREIGN KEY (customer_id)
+        REFERENCES customer (id)
 );
 
-CREATE TABLE tipo_servico (
+CREATE TABLE service_type (
     id BIGSERIAL PRIMARY KEY,
-    nome VARCHAR(100) UNIQUE NOT NULL,
-    preco NUMERIC(10, 2) NOT NULL,
-    tempo_estimado_minutos INTEGER NOT NULL
+    name_service VARCHAR(100) UNIQUE NOT NULL,
+    price NUMERIC(10, 2) NOT NULL,
+    estimated_time_minutes INTEGER NOT NULL
 );
 
-CREATE TABLE servico (
+CREATE TABLE service (
     id BIGSERIAL PRIMARY KEY,
 
-    estado VARCHAR(50) NOT NULL,
+    state VARCHAR(50) NOT NULL,
     
-    carro_id BIGINT NOT NULL,
-    tipo_servico_id BIGINT NOT NULL,
+    car_id BIGINT NOT NULL,
+    service_type_id BIGINT NOT NULL,
     
-    data_entrada_fila TIMESTAMP WITHOUT TIME ZONE NOT NULL,
-    data_inicio_lavagem TIMESTAMP WITHOUT TIME ZONE NULL,
-    data_fim_servico TIMESTAMP WITHOUT TIME ZONE NULL,
-    valor_total NUMERIC(10, 2) NOT NULL,
+    date_entry_queue TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    start_date_washing TIMESTAMP WITHOUT TIME ZONE NULL,
+    service_end_date TIMESTAMP WITHOUT TIME ZONE NULL,
+    total_value NUMERIC(10, 2) NOT NULL,
 
-    -- Chaves Estrangeiras
-    CONSTRAINT fk_servico_carro
-        FOREIGN KEY (carro_id)
-        REFERENCES carro (id),
+    -- Chaves 
+    CONSTRAINT fk_car_service
+        FOREIGN KEY (car_id)
+        REFERENCES car (id),
         
-    CONSTRAINT fk_servico_tipo
-        FOREIGN KEY (tipo_servico_id)
-        REFERENCES tipo_servico (id)
+    CONSTRAINT fk_service_type
+        FOREIGN KEY (service_type_id)
+        REFERENCES service_type (id)
 );
 
 
-CREATE INDEX idx_servico_estado ON servico (estado);
+CREATE INDEX idx_servico_estado ON servico (state);

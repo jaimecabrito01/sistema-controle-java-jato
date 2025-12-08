@@ -19,14 +19,14 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor  
 @AllArgsConstructor
-public class Cliente {
+public class Customer {
     @Id
     @GeneratedValue( strategy = GenerationType.UUID)
     private UUID Id;
-    @Column(name = "nome_completo")
-    private String nome_completo;
-    @Column(name = "telefone")
-    private String telefone;
+    @Column(name = "name_customer")
+    private String nameCustomer;
+    @Column(name = "phone_number")
+    private String phoneNumber;
     @Column(name = "email")
     private String email;
     
