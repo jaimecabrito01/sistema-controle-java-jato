@@ -3,7 +3,6 @@ CREATE TABLE cliente (
     nome_completo VARCHAR(255) NOT NULL,
     telefone VARCHAR(20) NOT NULL,
     email VARCHAR(255) NULL,
-    data_cadastro TIMESTAMP WITHOUT TIME ZONE NOT NULL
 );
 
 CREATE TABLE carro (
