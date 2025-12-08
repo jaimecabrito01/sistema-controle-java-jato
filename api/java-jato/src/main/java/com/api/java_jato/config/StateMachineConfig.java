@@ -45,5 +45,5 @@ public class StateMachineConfig extends EnumStateMachineConfigurerAdapter<States
         .withExternal().source(States.WAITING).target(States.CANCELED).event(Events.REQUEST_CANCELLATION);
       
     
-
+            }
 }

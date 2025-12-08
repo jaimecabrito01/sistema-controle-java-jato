@@ -1,8 +1,9 @@
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE TABLE customer (
-    id UUID PRIMARY KEY  uuid_generate_v4(),
+    id UUID PRIMARY KEY  DEFAULT uuid_generate_v4(),
     name_customer VARCHAR(255) NOT NULL,
     phone_number VARCHAR(20) NOT NULL,
-    email VARCHAR(255) NULL,
+    email VARCHAR(255) NULL
 );
 
 CREATE TABLE car (
@@ -10,7 +11,7 @@ CREATE TABLE car (
     license_plate VARCHAR(10) UNIQUE NOT NULL, 
     model VARCHAR(100) NOT NULL,
     color VARCHAR(50) NOT NULL,
-    customer_id BIGINT NOT NULL,
+    customer_id UUID NOT NULL,
     
     CONSTRAINT fk_customer_car
         FOREIGN KEY (customer_id)
@@ -48,4 +49,4 @@ CREATE TABLE service (
 );
 
 
-CREATE INDEX idx_servico_estado ON servico (state);
+CREATE INDEX idx_servico_estado ON service (state);
