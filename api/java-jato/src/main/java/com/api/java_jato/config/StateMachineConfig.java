@@ -2,6 +2,7 @@ package com.api.java_jato.config;
 
 import java.util.EnumSet;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.statemachine.action.Action;
@@ -13,12 +14,15 @@ import org.springframework.statemachine.listener.StateMachineListener;
 import org.springframework.statemachine.listener.StateMachineListenerAdapter;
 import org.springframework.statemachine.transition.Transition;
 
+import com.api.java_jato.services.RedisQueueService;
 import com.api.java_jato.states.Events;
 import com.api.java_jato.states.States;
 
 @Configuration
 @EnableStateMachineFactory
 public class StateMachineConfig extends EnumStateMachineConfigurerAdapter<States, Events> {
+    @Autowired
+    private RedisQueueService service;
 
     @Override
     public void configure(StateMachineStateConfigurer<States, Events> states)
@@ -72,20 +76,29 @@ public class StateMachineConfig extends EnumStateMachineConfigurerAdapter<States
 
     @Bean
     Action<States, Events> finished() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'finished'");
+        return context -> {
+            System.out.println("Finished service");
+        };
+     
     }
 
     @Bean
     Action<States, Events> waitingPayment() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'waitingPayment'");
+        return context ->{
+            System.out.println("Waiting payment");
+        };
     }
 
     @Bean
     Action<States, Events> externalWashing() {
         return context -> {
-            System.out.println("Carro lavando externamente");
+            Long serviceId =(Long) context.getExtendedState().getVariables().get("serviceId");
+            if(serviceId != null){
+                service.addActiveQueue(serviceId).subscribe();
+                
+            }else{
+                new  Exception("Service Id not found");
+            }
         };
     }
 
