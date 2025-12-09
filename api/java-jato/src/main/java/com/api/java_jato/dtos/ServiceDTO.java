@@ -24,6 +24,9 @@ public class ServiceDTO {
 
     
 
+    public ServiceDTO() {
+    }
+
     public ServiceDTO(States state, Car car, ServiceType serviceType, LocalDateTime dateEntryQueue,
             LocalDateTime startDateWashing, LocalDateTime dataFimServico, BigDecimal totalValue) {
         this.state = state;

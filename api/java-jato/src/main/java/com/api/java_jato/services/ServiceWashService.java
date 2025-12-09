@@ -10,7 +10,7 @@ import com.api.java_jato.repository.ServiceRepository;
 import jakarta.transaction.Transactional;
 
 @Service
-public class ServiceService {
+public class ServiceWashService {
     @Autowired
     private ServiceRepository repository;
 
