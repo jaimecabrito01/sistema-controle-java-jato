@@ -15,7 +15,7 @@ import java.util.List;
 
 public interface CustomerRepository extends JpaRepository<Customer,UUID> {
     
-    Optional<Customer> findByNameCustomer(String nameCustomer);
+    Optional<Customer> findByName(String name);
 
     
 }

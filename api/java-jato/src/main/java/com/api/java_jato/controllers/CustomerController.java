@@ -24,7 +24,7 @@ public class CustomerController {
         try {
             return ResponseEntity.ok().body(service.create(dto).toString());
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.status(409).body(e.getMessage());
         }
         
     }

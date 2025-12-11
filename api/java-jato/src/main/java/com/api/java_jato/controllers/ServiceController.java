@@ -16,6 +16,7 @@ import com.api.java_jato.repository.CarRepository;
 import com.api.java_jato.repository.ServiceRepository;
 import com.api.java_jato.repository.ServiceTypeRepository;
 import com.api.java_jato.services.ServiceWashService;
+import com.api.java_jato.services.StateMachineService;
 import com.api.java_jato.states.States;
 
 import reactor.core.publisher.Mono;
@@ -32,6 +33,7 @@ public class ServiceController {
     private ServiceWashService service;
     private CarRepository repository;
     private ServiceTypeRepository typeRepository;
+    private StateMachineService state;
     
     @PostMapping("/service/new")
     public ResponseEntity<ServiceWash> create(@RequestBody  ServiceCreateDTO dto) {
@@ -39,7 +41,8 @@ public class ServiceController {
         serviceDTO.setCar(repository.getById(dto.carId()));
         serviceDTO.setDateEntryQueue(LocalDateTime.now());
         serviceDTO.setServiceType(typeRepository.getById(dto.idServiceType()));
-
+        
+        state.newQueue();
         return ResponseEntity.ok().body(service.create(serviceDTO));
             
     }

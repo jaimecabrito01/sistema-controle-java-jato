@@ -19,8 +19,13 @@ public class CarController {
     private CarService service;
 
     @PostMapping("/car/new")
-    public ResponseEntity<Car> create(@RequestBody CarDTO dto) {        
-        return ResponseEntity.ok().body(service.create(dto));
+    public ResponseEntity<String> create(@RequestBody CarDTO dto) {
+        try {
+            return ResponseEntity.ok().body(create(dto).toString());
+        } catch (Exception e) {
+            return ResponseEntity.status(409).body(e.getMessage());
+            // TODO: handle exception
+        }        
     }
 
     

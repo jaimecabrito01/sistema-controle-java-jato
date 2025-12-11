@@ -15,6 +15,7 @@ import org.springframework.statemachine.listener.StateMachineListenerAdapter;
 import org.springframework.statemachine.transition.Transition;
 
 import com.api.java_jato.services.RedisQueueService;
+import com.api.java_jato.services.ServiceWashService;
 import com.api.java_jato.states.Events;
 import com.api.java_jato.states.States;
 
@@ -23,6 +24,7 @@ import com.api.java_jato.states.States;
 public class StateMachineConfig extends EnumStateMachineConfigurerAdapter<States, Events> {
     @Autowired
     private RedisQueueService service;
+    private ServiceWashService washService;
 
     @Override
     public void configure(StateMachineStateConfigurer<States, Events> states)
@@ -95,6 +97,8 @@ public class StateMachineConfig extends EnumStateMachineConfigurerAdapter<States
             Long serviceId =(Long) context.getExtendedState().getVariables().get("serviceId");
             if(serviceId != null){
                 service.addActiveQueue(serviceId).subscribe();
+                washService.alterState();
+                
                 
             }else{
                 new  Exception("Service Id not found");
