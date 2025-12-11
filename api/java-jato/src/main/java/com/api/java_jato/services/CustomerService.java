@@ -13,15 +13,20 @@ public class CustomerService {
     @Autowired
     private CustomerRepository repository;
 
-    public Customer create(CustomerDTO dto ){
-        Customer customer  = new Customer();
-        customer.setEmail(dto.email());
-        customer.setNameCustomer(dto.nameCustomer());
-        customer.setPhoneNumber(dto.phoneNumber());
-        customer.setEmail(dto.email());
+    public Customer create(CustomerDTO dto) throws Exception {
 
-        return repository.saveAndFlush(customer);
+        if (repository.findByNameCustomer(dto.nameCustomer()).isEmpty()) {
+            Customer customer = new Customer();
+            customer.setEmail(dto.email());
+            customer.setNameCustomer(dto.nameCustomer());
+            customer.setPhoneNumber(dto.phoneNumber());
+            customer.setEmail(dto.email());
+            return customer;
+        } else {
+            throw new Exception("the customer alredy exists!!");
+
+        }
 
     }
-    
+
 }

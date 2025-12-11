@@ -40,7 +40,7 @@ public class ServiceController {
         serviceDTO.setDateEntryQueue(LocalDateTime.now());
         serviceDTO.setServiceType(typeRepository.getById(dto.idServiceType()));
 
-        return ResponseEntity.status(200).body(service.create(serviceDTO));
+        return ResponseEntity.ok().body(service.create(serviceDTO));
             
     }
     

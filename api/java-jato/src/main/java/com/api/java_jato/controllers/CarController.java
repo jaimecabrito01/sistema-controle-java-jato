@@ -18,10 +18,11 @@ public class CarController {
     @Autowired
     private CarService service;
 
-    @PostMapping("/car/create")
-    public ResponseEntity<Car> postMethodName(@RequestBody CarDTO dto) {        
+    @PostMapping("/car/new")
+    public ResponseEntity<Car> create(@RequestBody CarDTO dto) {        
         return ResponseEntity.ok().body(service.create(dto));
     }
+
     
     
     
